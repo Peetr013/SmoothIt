@@ -10,8 +10,7 @@ mongoose
 .then(() => console.log("Database connected"))
 .catch(() => console.log("chyba"))
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+
 const smoothieRouter = require('./routes/smoothie');
 
 const app = express();
@@ -27,8 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
 app.use('/smoothie', smoothieRouter);
 
 // catch 404 and forward to error handler

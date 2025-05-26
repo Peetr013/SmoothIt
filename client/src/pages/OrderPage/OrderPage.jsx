@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react'; // Přidáme useMemo
 import IngredientItem from '../../components/IngredientItem'; // Cesta musí odpovídat tvé struktuře
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar'; // Dle tvé aktuální struktury, kde máš Navbar
+import toast from 'react-hot-toast';
 
 const ingredientsData = [
     { id: 'strawberry', name: 'Jahoda', image: 'strawberry.png', price: 15 },
@@ -44,13 +45,13 @@ const ingredientsData = [
   
     const handleScrapOrder = () => {
       setSelectedIngredientIds(new Set());
-      alert('Objednávka zrušena!');
+      toast('Objednávka zrušena!');
       navigate('/');
     };
   
     const handleFinishOrder = async () => {
       if (selectedIngredientIds.size === 0) {
-        alert('Prosím, přidejte alespoň jednu ingredienci do smoothie!');
+        toast('Prosím, přidejte alespoň jednu ingredienci do smoothie!');
         return;
       }
   
@@ -82,13 +83,13 @@ const ingredientsData = [
   
         const responseData = await response.json();
         console.log('Objednávka úspěšně odeslána:', responseData);
-        alert(`Objednávka odeslána! Celková cena: ${totalPrice} Kč`);
+        toast.success(`Objednávka odeslána! Celková cena: ${totalPrice} Kč`);
         setSelectedIngredientIds(new Set());
         navigate('/thank-you');
   
       } catch (error) {
         console.error('Chyba při odesílání objednávky:', error);
-        alert(`Chyba při odesílání objednávky: ${error.message}`);
+        toast(`Chyba při odesílání objednávky: ${error.message}`);
       }
     };
   

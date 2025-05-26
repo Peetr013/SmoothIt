@@ -12,5 +12,7 @@ router.get('/orders', smoothieController.getAllSmoothieOrders);
 // Volitelné: Route pro získání jedné objednávky podle ID (GET request s parametrem)
 router.get('/orders/:id', smoothieController.getSmoothieOrderById);
 
+router.put('/orders/:id/status', smoothieController.updateSmoothieOrderStatus);
+
 
 module.exports = router;
