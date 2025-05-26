@@ -12,6 +12,7 @@ export default function Home() {
         <Link to={"/view-cars"}>
             <p>View car</p>
         </Link>
+        <button className="btn btn-primary">pica</button>
     </>
   )
 }
