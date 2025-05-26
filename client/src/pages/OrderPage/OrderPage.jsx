@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar'; // Dle tvé aktuální struktury, 
 import toast from 'react-hot-toast';
 
 const ingredientsData = [
-    { id: 'strawberry', name: 'Jahoda', image: 'strawberry.png', price: 30 },
+    { id: 'strawberry', name: 'Jahoda', image: 'strawberry.png', price: 35 },
     { id: 'banana', name: 'Banán', image: 'banana.png', price: 69 },
     { id: 'raspberry', name: 'Malina', image: 'raspberry.png', price: 60 },
     { id: 'blueberry', name: 'Borůvka', image: 'blueberry.png', price: 50 },
