@@ -3,14 +3,20 @@ import IngredientItem from '../../components/IngredientItem'; // Cesta musí odp
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar'; // Dle tvé aktuální struktury, kde máš Navbar
 import toast from 'react-hot-toast';
+import ananas from '../../assets/ananas.png';
+import banan from '../../assets/banan.png';
+import boruvka from '../../assets/boruvka.png';
+import jahoda from '../../assets/jahoda.png';
+import malina from '../../assets/malina.png';
+import mleko from '../../assets/mleko.png';
 
 const ingredientsData = [
-    { id: 'strawberry', name: 'Jahoda', image: 'strawberry.png', price: 35 },
-    { id: 'banana', name: 'Banán', image: 'banana.png', price: 69 },
-    { id: 'raspberry', name: 'Malina', image: 'raspberry.png', price: 60 },
-    { id: 'blueberry', name: 'Borůvka', image: 'blueberry.png', price: 50 },
-    { id: 'milk', name: 'Mléko', image: 'milk.png', price: 100 },
-    { id: 'pineapple', name: 'Ananas', image: 'pineapple.png', price: 99 },
+    { id: 'strawberry', name: 'Jahoda', image: jahoda, price: 35 },
+    { id: 'banana', name: 'Banán', image: banan, price: 69 },
+    { id: 'raspberry', name: 'Malina', image: malina, price: 60 },
+    { id: 'blueberry', name: 'Borůvka', image: boruvka, price: 50 },
+    { id: 'milk', name: 'Mléko', image: mleko, price: 100 },
+    { id: 'pineapple', name: 'Ananas', image: ananas, price: 99 },
 ];
 
 const OrderPage = () => {
@@ -48,13 +54,13 @@ const OrderPage = () => {
 
     const handleScrapOrder = () => {
         setSelectedIngredientIds(new Set());
-        toast('Objednávka zrušena!');
+        toast('Objednávka zrušena!', { icon: '👋' }); // Přidána ikona pro zrušení
         navigate('/');
     };
 
     const handleFinishOrder = async () => {
         if (selectedIngredientIds.size === 0) {
-            toast('Prosím, přidejte alespoň jednu ingredienci do smoothie!');
+            toast('Prosím, přidejte alespoň jednu ingredienci do smoothie!', { icon: '⚠️' });
             return;
         }
 
@@ -67,6 +73,8 @@ const OrderPage = () => {
             ingredients: finalOrderIngredients, // Pole stringů
             price: totalPrice,
         };
+
+        toast.loading('Odesílám objednávku...', { id: 'orderSending' }); // Zobrazí loading toast
 
         try {
             const response = await fetch(API_ORDER_URL, {
@@ -88,13 +96,13 @@ const OrderPage = () => {
             // TADY JE ZMĚNA: Používáme _id z odpovědi backendu
             const newOrderId = responseData.order._id;
             
-            toast.success(`Objednávka odeslána! Celková cena: ${totalPrice} Kč`);
+            toast.success(`Objednávka odeslána! Celková cena: ${totalPrice} Kč`, { id: 'orderSending' }); // Aktualizuje loading toast na success
             setSelectedIngredientIds(new Set());
             navigate(`/TYpage/${newOrderId}`); 
 
         } catch (error) {
             console.error('Chyba při odesílání objednávky:', error);
-            toast(`Chyba při odesílání objednávky: ${error.message}`);
+            toast.error(`Chyba při odesílání objednávky: ${error.message}`, { id: 'orderSending' }); // Aktualizuje loading toast na error
         }
     };
 
@@ -141,13 +149,39 @@ const OrderPage = () => {
                     </div>
                 </div>
 
-                {/* Tlačítka Scrap a Finish */}
-                <div className="flex justify-between mt-8">
-                    <button className="btn btn-error btn-lg" onClick={handleScrapOrder}>
-                        Scrap
+                {/* Tlačítka Scrap a Finish - Nyní opět roztažená do stran */}
+                <div className="flex justify-between mt-8 w-full px-4 md:px-8 lg:px-16"> {/* Upravené třídy */}
+                    <button 
+                        className="
+                            btn btn-error btn-lg 
+                            text-white font-extrabold text-xl 
+                            px-8 py-4 
+                            shadow-lg 
+                            hover:scale-110 hover:shadow-2xl 
+                            active:scale-95 
+                            transition-all duration-300 ease-in-out
+                            tracking-wide uppercase
+                            w-auto md:w-1/3 lg:w-1/4 xl:w-1/5 {/* Flexibilnější šířka tlačítka */}
+                        " 
+                        onClick={handleScrapOrder}
+                    >
+                        Zrušit Objednávku
                     </button>
-                    <button className="btn btn-success btn-lg" onClick={handleFinishOrder}>
-                        Finish
+                    <button 
+                        className="
+                            btn btn-success btn-lg 
+                            text-white font-extrabold text-xl 
+                            px-8 py-4 
+                            shadow-lg 
+                            hover:scale-110 hover:shadow-2xl 
+                            active:scale-95 
+                            transition-all duration-300 ease-in-out
+                            tracking-wide uppercase
+                            w-auto md:w-1/3 lg:w-1/4 xl:w-1/5 {/* Flexibilnější šířka tlačítka */}
+                        " 
+                        onClick={handleFinishOrder}
+                    >
+                        Dokončit Objednávku
                     </button>
                 </div>
             </div>

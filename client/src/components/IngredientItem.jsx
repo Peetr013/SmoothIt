@@ -2,28 +2,27 @@ import React from 'react';
 
 // Přidáme prop `isSelected` pro vizuální indikaci
 const IngredientItem = ({ ingredient, onToggle, isSelected }) => {
+  // Předpokládá, že obrázky jsou přímo v public složce, např. public/strawberry.png
+  // Pokud máš obrázky v jiné složce (např. src/assets), musíš je importovat:
+  // import strawberryImg from '../assets/strawberry.png';
+  // ... a pak je použít: src={strawberryImg}
+  const imageUrl = `${ingredient.image}`; 
+
   return (
     <div
-      // Podmíněné stylování pro zobrazení, zda je ingredience vybrána
-      className={`
-        flex flex-col items-center justify-center p-4 m-2 rounded-lg shadow-md cursor-pointer
-        ${isSelected ? 'bg-primary text-white border-2 border-primary-focus' : 'bg-base-200 hover:bg-base-300'}
-        transition-all duration-200 ease-in-out
-      `}
-      onClick={() => onToggle(ingredient)} // Změníme název prop na onToggle
+      // Zvětšujeme card na w-48 (původně w-40), zvětšujeme padding na p-6 (původně p-4)
+      className={`card w-48 bg-base-100 shadow-xl cursor-pointer transition-all duration-200 
+                  ${isSelected ? 'border-4 border-primary scale-105' : 'border-2 border-transparent hover:scale-105'}`}
+      onClick={() => onToggle(ingredient)}
     >
-      <img
-        src={`/images/${ingredient.image}`}
-        alt={ingredient.name}
-        className="w-20 h-20 object-contain mb-2"
-      />
-      <span className="text-sm font-semibold">{ingredient.name}</span>
-      {/* Volitelně můžeš přidat ikonu, pokud je vybráno */}
-      {isSelected && (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-        </svg>
-      )}
+      <figure className="px-6 pt-6"> {/* Zvětšujeme px a pt */}
+        {/* Zvětšujeme obrázek na w-28 h-28 (původně w-24 h-24) */}
+        <img src={imageUrl} alt={ingredient.name} className="rounded-xl w-28 h-28 object-contain" />
+      </figure>
+      <div className="card-body items-center text-center p-4"> {/* Můžeš zvětšit p-4 na p-6, pokud chceš více místa uvnitř */}
+        <h2 className="card-title text-base">{ingredient.name}</h2> {/* Zvětšujeme text názvu */}
+        <p className="text-sm text-gray-400">{ingredient.price} Kč</p> {/* Zvětšujeme text ceny */}
+      </div>
     </div>
   );
 };
