@@ -77,7 +77,6 @@ const Employee = () => {
             <div key={order._id} className="card bg-base-200 shadow-xl border border-gray-700">
               <div className="card-body">
                 <h2 className="card-title text-primary">Objednávka ID: {order._id}</h2>
-                <p className="text-sm text-gray-400">Objednáno: {new Date(order.orderedAt).toLocaleString()}</p>
                 {/* Zde můžeš volitelně zobrazit status, ale jelikož zobrazujeme jen "preparing", je to méně kritické */}
                 <div className="badge badge-info">Status: {order.status}</div>
 
