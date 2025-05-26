@@ -5,12 +5,12 @@ import Navbar from '../../components/Navbar'; // Dle tvé aktuální struktury, 
 import toast from 'react-hot-toast';
 
 const ingredientsData = [
-    { id: 'strawberry', name: 'Jahoda', image: 'strawberry.png', price: 15 },
-    { id: 'banana', name: 'Banán', image: 'banana.png', price: 10 },
-    { id: 'raspberry', name: 'Malina', image: 'raspberry.png', price: 12 },
-    { id: 'blueberry', name: 'Borůvka', image: 'blueberry.png', price: 20 },
-    { id: 'milk', name: 'Mléko', image: 'milk.png', price: 8 },
-    { id: 'pineapple', name: 'Ananas', image: 'pineapple.png', price: 10 },
+    { id: 'strawberry', name: 'Jahoda', image: 'strawberry.png', price: 30 },
+    { id: 'banana', name: 'Banán', image: 'banana.png', price: 69 },
+    { id: 'raspberry', name: 'Malina', image: 'raspberry.png', price: 60 },
+    { id: 'blueberry', name: 'Borůvka', image: 'blueberry.png', price: 50 },
+    { id: 'milk', name: 'Mléko', image: 'milk.png', price: 100 },
+    { id: 'pineapple', name: 'Ananas', image: 'pineapple.png', price: 99 },
 ];
 
 const OrderPage = () => {
