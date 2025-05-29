@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar"; // pokud ho nemáš globálně
+import Navbar from "../../components/Navbar";
 
 const Contact = () => {
   return (
@@ -53,10 +53,7 @@ const Contact = () => {
               Odeslat zprávu
             </button>
           </form>
-<div className="text-center mt-10">
-            
-          
-          </div>
+          <div className="text-center mt-10"></div>
         </div>
       </section>
     </>

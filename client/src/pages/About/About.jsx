@@ -1,9 +1,8 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";  // import Footeru
-import teamImage from '../../assets/obrazek.webp'; // uprav cestu k obrázku podle potřeby
+import Footer from "../../components/Footer";
+import teamImage from "../../assets/obrazek.webp";
 
 const About = () => {
   return (
@@ -15,8 +14,9 @@ const About = () => {
             O nás
           </h1>
           <p className="text-lg md:text-xl text-gray-700 mb-10">
-            Ve <span className="font-semibold text-green-700">Smooth IT</span> milujeme čerstvost – jak v kódu, tak v ovoci.
-            Naší misí je dodávat digitální řešení tak osvěžující, jako je smoothie po józe.
+            Ve <span className="font-semibold text-green-700">Smooth IT</span>{" "}
+            milujeme čerstvost – jak v kódu, tak v ovoci. Naší misí je dodávat
+            digitální řešení tak osvěžující, jako je smoothie po józe.
           </p>
           <img
             src={teamImage}
@@ -25,7 +25,9 @@ const About = () => {
           />
           <div className="grid md:grid-cols-2 gap-8 text-left text-gray-800">
             <div>
-              <h2 className="text-2xl font-semibold mb-2 text-lime-800">Naše hodnoty</h2>
+              <h2 className="text-2xl font-semibold mb-2 text-lime-800">
+                Naše hodnoty
+              </h2>
               <ul className="list-disc list-inside space-y-1">
                 <li>Skvělá chuť bez výčitek</li>
                 <li>Plné vitamínů a energie</li>
@@ -35,11 +37,20 @@ const About = () => {
               </ul>
             </div>
             <div>
-              <h2 className="text-2xl font-semibold mb-2 text-lime-800">Proč smoothie?</h2>
+              <h2 className="text-2xl font-semibold mb-2 text-lime-800">
+                Proč smoothie?
+              </h2>
               <p>
-                Naše smoothie nejsou jen nápoje – jsou to plné dávky energie, vitamínů a čerstvosti v každém doušku. Vyrábíme je z těch nejkvalitnějších surovin, bez umělých dochucovadel, konzervantů nebo přidaného cukru. Používáme čerstvé ovoce, zeleninu a superpotraviny, které mixujeme těsně před podáním – takže chutnají nejen skvěle, ale i udrží maximum živin.
-
-                Každý náš recept je pečlivě vyladěný tak, aby nejen potěšil chuťové buňky, ale také podpořil tvé zdraví, imunitu a celkovou pohodu. Ať už hledáš ranní dávku energie, něco na doplnění po tréninku nebo zdravou svačinu – máme smoothie přesně pro tebe.
+                Naše smoothie nejsou jen nápoje – jsou to plné dávky energie,
+                vitamínů a čerstvosti v každém doušku. Vyrábíme je z těch
+                nejkvalitnějších surovin, bez umělých dochucovadel, konzervantů
+                nebo přidaného cukru. Používáme čerstvé ovoce, zeleninu a
+                superpotraviny, které mixujeme těsně před podáním – takže
+                chutnají nejen skvěle, ale i udrží maximum živin. Každý náš
+                recept je pečlivě vyladěný tak, aby nejen potěšil chuťové buňky,
+                ale také podpořil tvé zdraví, imunitu a celkovou pohodu. Ať už
+                hledáš ranní dávku energie, něco na doplnění po tréninku nebo
+                zdravou svačinu – máme smoothie přesně pro tebe.
               </p>
             </div>
           </div>
@@ -51,7 +62,7 @@ const About = () => {
           </Link>
         </div>
       </section>
-      <Footer />  {/* Footer dole */}
+      <Footer />
     </>
   );
 };

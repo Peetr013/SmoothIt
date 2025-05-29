@@ -167,7 +167,7 @@ const Employee = () => {
     return (
       <div className="min-h-screen min-w-screen bg-gray-800 flex flex-col items-center justify-center p-4">
         <div className="flex flex-col w-full max-w-sm p-8 bg-gray-700 shadow-2xl rounded-lg text-white">
-          <h2 className="text-3xl font-bold text-center mb-8">Admin Login</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">Employee login</h2>
 
           <form
             className="flex flex-col gap-4"

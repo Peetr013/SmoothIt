@@ -26,7 +26,7 @@
   animation: fade-in-up 0.8s ease-out forwards;
 }
 homepage-background {
-  background-image: url('../../assets/ovoce.jpg.avif'); /* Změň na cestu k tvému obrázku */
+  background-image: url('../../assets/ovoce.jpg.avif'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
