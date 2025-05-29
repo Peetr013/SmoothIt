@@ -1,29 +1,41 @@
 import React from 'react';
-import './HomePage.css'; // Importujeme CSS pro animaci
+import './HomePage.css';
 import Navbar from '../../components/Navbar';
-import Jahoda from '../../assets/jahoda.png'
+import Footer from '../../components/Footer';
+import Jahoda from '../../assets/jahoda.png';
+import pozadi from '../../assets/ovoce_LE_upscale_balanced_x4.jpg';
 import { Link } from 'react-router-dom';
-
-// Předpokládáme, že máš obrázek jahody v public/images/strawberry.png
-// Nebo si ho dej do src a importuj: import strawberryImage from '../assets/strawberry.png';
 
 const HomePage = () => {
   return (
-    <>
-    <Navbar/>
-    <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-gray-800 text-white"> {/* Předpokládáme výšku navbaru 64px */}
-      <div className="relative">
-        <Link to="/orderPage" className="flex flex-col items-center group">
-          <span className="text-xl mb-4 font-bold tracking-wide text-primary">objednat</span>
-          <img
-            src={Jahoda} // Cesta k obrázku jahody
-            alt="Smoothie Strawberry"
-            className="w-64 h-64 object-contain animate-spin-slow cursor-pointer"
-          />
-        </Link>
-      </div>
+    <div
+      className="flex flex-col min-h-screen text-white"
+      style={{
+        backgroundImage: `url(${pozadi})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <Navbar />
+
+      <main className="flex-grow flex items-center justify-center px-4">
+        <div className="bg-green-700 p-8 rounded-2xl shadow-2xl max-w-md w-full text-center animate-fade-in-up border-4 border-white">
+          <Link to="/orderPage" className="group cursor-pointer flex flex-col items-center space-y-4">
+            <span className="text-3xl font-extrabold tracking-wider text-white group-hover:text-pink-400 transition-colors duration-300">
+              Objednat Smoothie
+            </span>
+            <img
+              src={Jahoda}
+              alt="Smoothie Strawberry"
+              className="w-48 h-48 object-contain animate-spin-slow transform group-hover:scale-105 transition-transform duration-500 drop-shadow-lg"
+            />
+          </Link>
+        </div>
+      </main>
+
+      <Footer />
     </div>
-    </>
   );
 };
 

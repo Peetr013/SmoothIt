@@ -19,59 +19,45 @@ const TYpage = () => {
             return;
         }
 
-        
-
-            const fetchOrderDetails = async () => {
-                setLoading(true); // Nastavíme loading na true na začátku každého fetchu
-                setError(null);
-                try {
-                    const response = await fetch(`${API_SINGLE_ORDER_DETAILS_URL_BASE}/${orderId}`);
-                    console.log(response)
-                    // --- ZDE JE KLÍČOVÁ ZMĚNA: Zpracování statusu 304 ---
-                    if (response.status === 304) {
-                        // Pokud je status 304, data se nezměnila.
-                        // Nemusíme nic aktualizovat ve stavu 'order', protože už máme aktuální data.
-                        // Jen zrušíme loading a nebudeme vyhazovat chybu.
-                        setLoading(false);
-                        return; // Ukončíme funkci, aby se dál nepokoušela parsovat JSON
-                    }
-                    // -----------------------------------------------------
-
-                    if (!response.ok) {
-                        // Pokud není 2xx a není ani 304, pak je to skutečná chyba
-                        const errorText = await response.text();
-                        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
-                    }
-
-                    const data = await response.json();
-                    setOrder(data); // Aktualizujeme stav 'order' pouze pokud dostaneme nová data (status 200 OK)
-                } catch (err) {
-                    console.error('Chyba při načítání detailů objednávky:', err);
-                    setError(`Nepodařilo se načíst detaily objednávky. Chyba: ${err.message}`);
-                    toast.error(`Chyba: ${err.message}`);
-                } finally {
-                    // Loading by měl být vypnut i při chybě
+        const fetchOrderDetails = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await fetch(`${API_SINGLE_ORDER_DETAILS_URL_BASE}/${orderId}`);
+                if (response.status === 304) {
                     setLoading(false);
+                    return;
                 }
-            };
 
-            // První načtení detailů objednávky
-            fetchOrderDetails();
-        
-        // Nastavíme interval pro pravidelnou kontrolu statusu objednávky
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+                }
+
+                const data = await response.json();
+                setOrder(data);
+            } catch (err) {
+                console.error('Chyba při načítání detailů objednávky:', err);
+                setError(`Nepodařilo se načíst detaily objednávky. Chyba: ${err.message}`);
+                toast.error(`Chyba: ${err.message}`);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrderDetails();
+
         const interval = setInterval(() => {
-            // Před fetchOrderDetails zkontrolujeme, zda je order již hotový, abychom zbytečně nevolali API
             if (order && order.status === 'done') {
-                clearInterval(interval); // Objednávka je hotová, zastavíme interval
+                clearInterval(interval);
                 toast.success('Vaše smoothie je hotové! Můžete si pro něj přijít.', { duration: 8000 });
             } else {
-                // Pokud není hotovo nebo order je null (např. při prvním načtení), zavoláme fetch
                 fetchOrderDetails();
             }
-        }, 5000); // Kontrolujeme každých 5 sekund
+        }, 5000);
 
         return () => clearInterval(interval);
-    }, []); // order v závislostech je důležité pro správné ukončení intervalu
+    }, []);
 
     const handleGoHome = () => {
         navigate('/');
@@ -81,7 +67,7 @@ const TYpage = () => {
         return (
             <>
                 <Navbar />
-                <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-gray-800 text-white p-4">
+                <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-pink-100 text-green-700 p-4">
                     <p className="text-xl">Načítám detaily objednávky...</p>
                 </div>
             </>
@@ -92,9 +78,12 @@ const TYpage = () => {
         return (
             <>
                 <Navbar />
-                <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-gray-800 text-white p-4">
-                    <p className="text-xl text-error">{error}</p>
-                    <button className="btn btn-primary mt-8" onClick={handleGoHome}>
+                <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] bg-pink-100 text-green-700 p-4">
+                    <p className="text-xl text-green-700">{error}</p>
+                    <button
+                        className="mt-8 px-6 py-2 border-2 border-green-700 text-green-700 rounded transition-colors duration-300 hover:bg-green-200"
+                        onClick={handleGoHome}
+                    >
                         Zpět na úvodní stránku
                     </button>
                 </div>
@@ -105,52 +94,56 @@ const TYpage = () => {
     return (
         <>
             <Navbar />
-            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] bg-gray-800 text-white p-4 text-center">
+            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] bg-pink-100 text-green-700 p-4 text-center">
                 <h1 className="text-4xl font-bold mb-4">Děkujeme za objednávku!</h1>
                 {order ? (
                     <>
-                        
-                    
                         <div className="text-2xl font-semibold mb-6">
-                            Status objednávky: {' '}
+                            Status objednávky:{' '}
                             {order.status === 'preparing' && (
-                                <span className="text-warning">Připravuje se... </span>
+                                <span className="text-yellow-400">Připravuje se... </span>
                             )}
                             {order.status === 'done' && (
-                                <span className="text-success">Připraveno k vyzvednutí! 🎉</span>
+                                <span className="text-green-800">Připraveno k vyzvednutí! 🎉</span>
                             )}
                             {order.status === 'canceled' && (
-                                <span className="text-error">Zrušeno 😔</span>
+                                <span className="text-green-900">Zrušeno 😔</span>
                             )}
                         </div>
 
                         {order.status === 'done' && (
-                            <p className="text-3xl text-success font-bold animate-pulse">
+                            <p className="text-3xl text-green-800 font-bold animate-pulse">
                                 Vaše smoothie je hotové! Můžete si pro něj přijít.
                             </p>
                         )}
 
-                        <div className="mt-6 p-4 bg-gray-700 rounded-lg shadow w-full max-w-md">
-                            <h3 className="text-xl font-semibold mb-2">Obsah objednávky:</h3>
+                        <div className="mt-6 p-4 bg-green-100 rounded-lg shadow w-full max-w-md border-2 border-green-600">
+                            <h3 className="text-xl font-semibold mb-2 text-green-700">Obsah objednávky:</h3>
                             {Array.isArray(order.ingredients) && order.ingredients.length > 0 ? (
-                                <ul className="list-disc list-inside text-left">
+                                <ul className="list-disc list-inside text-left text-green-700">
                                     {order.ingredients.map((ingredient, index) => (
                                         <li key={index}>{ingredient}</li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-gray-500">Žádné ingredience.</p>
+                                <p className="text-green-500">Žádné ingredience.</p>
                             )}
                         </div>
-
                     </>
                 ) : (
                     <p className="text-xl">Objednávka s tímto ID nebyla nalezena.</p>
                 )}
-                <button className="btn btn-primary mt-8" onClick={handleGoHome}>
+            </div>
+
+            {/* Footer */}
+            <footer className="w-full bg-pink-100 border-t border-green-600 py-4 flex justify-center">
+                <button
+                    className="px-6 py-2 border-2 border-green-700 text-green-700 rounded transition-colors duration-300 hover:bg-green-200"
+                    onClick={handleGoHome}
+                >
                     Zpět na úvodní stránku
                 </button>
-            </div>
+            </footer>
         </>
     );
 };

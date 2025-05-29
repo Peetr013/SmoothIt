@@ -1,12 +1,33 @@
-@keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
   }
-  
-  .animate-spin-slow {
-    animation: spin 10s linear infinite; /* 10 sekund na plnou rotaci */
+  to {
+    transform: rotate(360deg);
   }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+homepage-background {
+  background-image: url('../../assets/ovoce.jpg.avif'); /* Změň na cestu k tvému obrázku */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
